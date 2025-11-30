@@ -187,7 +187,11 @@ A. Problems I ran into.
         :       :       :       helloworld_1.0.bb <----- This one
         :       
         :       SW1 dip switches on the imx93 board can be cattywompus. Be sure to power off the device and hard click these chicklets. 
-
+        :
+        :       The naming of the custom application needed to match the binary. Im not 100 % sure this is necessary but it seamed to resolve
+        :       a bitbake error I was getting.
+        :       :       helloworld <-----binary
+        :       :       helloworld_1.0.bb not HelloWorld_xxxxx. I think caps may matter here. 
 
 EXAMPLE CODE:
 
