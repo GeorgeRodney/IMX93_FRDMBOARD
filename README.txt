@@ -120,8 +120,8 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=96af5705d6f64a88e035781ef00e98a8"
 
 FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}-${PV}:"
 
-SRCREV = "c96b1fdd0767a9a13b9fca9d91fd3975c44c9de4"
-SRC_URI = "git://github.com/gbmhunter/YoctoHelloWorldApp.git"
+SRCREV = "241a83c92f89a63a32042d421cdf91e93434e925"
+SRC_URI = "git://github.com/GeorgeRodney/meta-hellomike.git;protocol=https;branch=main"
 
 S = "${WORKDIR}/git"
 
@@ -135,7 +135,7 @@ PARALLEL_MAKE = ""
         :       SRCREV = "c96b1fdd0767a9a13b9fca9d91fd3975c44c9de4"
         :       :       To get this run "md5sum LICENSE" on the LICENSE file you created in your application
 
-        :       SRC_URI = "git://github.com/gbmhunter/YoctoHelloWorldApp.git"
+        :       SRC_URI = "git://github.com/GeorgeRodney/meta-hellomike.git;protocol=https;branch=main"
         :       :       This is the git URL that you created for the above project.
 
 
