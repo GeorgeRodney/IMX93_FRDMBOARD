@@ -166,6 +166,15 @@ BBLAYERS ?= " \
 
 14. Flash the board.
         :       sudo uuu -b emmc_all imx-image-core-imx93evk.rootfs-20251129221548.
+
+15. helloworld binary in /usr/bin
+        :       Example execution <./helloworld>
+        :       root@imx93evk:/usr/bin# 
+                ---- Sent utf8 encoded message: "./helloworld\r" ---- 
+                ./helloworld
+                Hello, World...
+
+        VOILA!
         
 
 A. Problems I ran into. 
