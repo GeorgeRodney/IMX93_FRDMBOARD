@@ -100,12 +100,12 @@ BBFILE_PRIORITY_example := "5"
         :       mkdir meta-example/recipes-example
 
 6. Create application folder.
-        :       mkdir recipes-example/HelloWorld
+        :       mkdir recipes-example/helloworld
 
 7. Create a bitbake .bb file in the application folder.
-        :       touch HelloWorld/HelloWorld_1.0.bb
+        :       touch helloworld/helloworld_1.0.bb
 
-8. Fille the HelloWorld_1.0.bb with this:
+8. Fill the helloworld_1.0.bb with this:
 
 #
 # This file was derived from the 'Hello World!' example recipe in the
