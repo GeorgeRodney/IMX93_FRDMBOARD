@@ -47,7 +47,7 @@
         :       imx-boot-imx93evk-sd.bin-flash_singleboot       (Bootloader)
 
 3. Decompress unzstd imx-image-core-imx93evk.rootfs-20251123182859.wic.zst
-        :       unzstd imx-image-core-imx93evk.rootfs-20251123182859.wic is the output
+        :       imx-image-core-imx93evk.rootfs-20251123182859.wic is the output
 
 4. Put the board in Serial Download Mode [1 0 0 0]
 
@@ -55,8 +55,8 @@
         :       Example of the NXP being available      
         :       Bus 001 Device 011: ID 1fc9:0152 NXP Semiconductors USB download gadget
 
-6. Flash with uuu:
-        EmbeddedGuy ~/imx-bsp/build/tmp/deploy/images/imx93evk $ sudo uuu -b emmc_all imx-boot-imx93evk-sd.bin-flash_singleboot imx-image-core-imx93evk.rootfs-20251123182859.wic
+6. Flash with uuu
+        :       sudo uuu -b emmc_all imx-boot-imx93evk-sd.bin-flash_singleboot imx-image-core-imx93evk.rootfs-20251123182859.wic
 
 7. Successful output:
         :       Success 1    Failure 0                                                         
@@ -159,14 +159,25 @@ BBLAYERS ?= " \
 
 13. Unzip the built image file.
         :       unzstd imx-image-core-imx6qpsabresd.rootfs-20251129154309.wic.zst
-        
+
         :       You can see that this image is for a imx6qp sabre board.
         :       MAKE SURE YOU ASSIGN 'MACHINE' correctly in the conf/local.conf file.
         :       I should have done MACHINE = "imx93ekv"
 
-14. Fash the board.
+14. Flash the board.
+        :       sudo uuu -b emmc_all imx-image-core-imx93evk.rootfs-20251129221548.
+        
 
-
+A. Problems I ran into. 
+        :       MACHINE = "imx93evk" 
+        :       :       changed to "sabre" (some other nxp board). Not sure why. Some scripting presumably. 
+        :
+        :       IMAGE_INSTALL:append = "helloworld"
+        :       :       Need this line in the build/conf/local.conf 
+        :       :       This tells yocto to add the package that was created by the custom layer's recipe meta data. 
+        :       :       :       helloworld_1.0.bb <----- This one
+        :       
+        :       SW1 dip switches on the imx93 board can be cattywompus. Be sure to power off the device and hard click these chicklets. 
 
 
 EXAMPLE CODE:
