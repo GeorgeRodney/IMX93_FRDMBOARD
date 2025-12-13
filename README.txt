@@ -158,14 +158,14 @@ BBLAYERS ?= " \
 12. Place the IMX-93 board in Serial Wire Mode. 1000
 
 13. Unzip the built image file.
-        :       unzstd imx-image-core-imx6qpsabresd.rootfs-20251129154309.wic.zst
+        :       unzstd imx-image-core-imx93evk.rootfs-20251129154309.wic.zst
 
         :       You can see that this image is for a imx6qp sabre board.
         :       MAKE SURE YOU ASSIGN 'MACHINE' correctly in the conf/local.conf file.
-        :       I should have done MACHINE = "imx93ekv"
+        :       I should have done MACHINE = "imx93evk"
 
 14. Flash the board.
-        :       sudo uuu -b emmc_all imx-image-core-imx93evk.rootfs-20251129221548.
+        :       sudo uuu -b emmc_all imx-image-core-imx93evk.rootfs-20251129221548.wic
 
 15. helloworld binary in /usr/bin
         :       Example execution <./helloworld>
@@ -294,3 +294,20 @@ helloworld_SOURCES = HelloWorld.c
 
 
 
+###---------------------------------------------------------------------------------------------------------------------------------------
+###
+###     Having a hard time getting SSH hook up. It seams that the ssh binary is on my target but the "service file" doesnt appear to be here. 
+###
+###---------------------------------------------------------------------------------------------------------------------------------------
+
+1. Turns out the DISTRO I was using didnt have systemd type things available to me. I was attempting to use the most simple/quick to build image as possible.
+        :       In the local.conf 'DISTRO = "fsl-imx-fb"' is now 'DISTRO = "fsl-imx-xwayland"'
+        :       -fb is too pared down. 
+
+
+
+###---------------------------------------------------------------------------------------------------------------------------------------
+###
+###     Using Video 4 Linux.
+###
+###---------------------------------------------------------------------------------------------------------------------------------------
