@@ -40,94 +40,86 @@
 
 ## 2. Files necessary to flash image to eMMC
         :       imx-image-core-imx93evk.rootfs.wic.zst          (Root file system)
-        :       imx-boot-imx93evk-sd.bin-flash_singleboot       (Bootloader)
 
 ## 3. Decompress unzstd imx-image-core-imx93evk.rootfs-20251123182859.wic.zst
         :       imx-image-core-imx93evk.rootfs-20251123182859.wic is the output
 
-4. Put the board in Serial Download Mode [1 0 0 0]
+## 4. Put the board in Serial Download Mode [1 0 0 0]
 
-5. Check to be sure the device is available using: lsusb
-        :       Example of the NXP being available      
-        :       Bus 001 Device 011: ID 1fc9:0152 NXP Semiconductors USB download gadget
+## 5. Check to be sure the device is available using: lsusb
 
-6. Flash with uuu
+## 6. Flash with uuu
         :       sudo uuu -b emmc_all imx-boot-imx93evk-sd.bin-flash_singleboot imx-image-core-imx93evk.rootfs-20251123182859.wic
 
-7. Successful output:
+## 7. Successful output:
         :       Success 1    Failure 0                                                         
                 1:3      8/ 8 [Done                                  ] FB: done  
 
+#     Creating cutsom layer with a cpp file in it. Using the Git Repo Route.
+             :       Im using this method because I followed a guide online and it worked. 
+             :       https://blog.mbedded.ninja/programming/embedded-linux/yocto-project/adding-a-custom-app-to-a-yocto-build/
 
-###---------------------------------------------------------------------------------------------------------------------------------------
-###
-###     Creating cutsom layer with a cpp file in it. Using the Git Repo Route.
-###             :       Im using this method because I followed a guide online and it worked. 
-###             :       https://blog.mbedded.ninja/programming/embedded-linux/yocto-project/adding-a-custom-app-to-a-yocto-build/
-###
-###---------------------------------------------------------------------------------------------------------------------------------------
-
-1. Create the project files.
+## 1. Create the project files.
         :       HelloWorld.c
         :       HelloWorld.h
         :       LICENSE
         :       configure.ac
         :       Makefile.am
 
-2. Create a git hub for this project. 
+## 2. Create a git hub for this project. 
 
-3. Make a layer to hold the application.
+## 3. Make a layer to hold the application.
         :       mkdir meta-example
         :       mkdir meta-example/conf
         :       touch conf/layer.conf
 
-4. Add this to conf/layer.conf:
+## 4. Add this to conf/layer.conf:
 
-# We have a conf and classes directory, add to BBPATH
-BBPATH := "${BBPATH}:${LAYERDIR}"
-# We have a packages directory, add to BBFILES
-BBFILES := "${BBFILES} ${LAYERDIR}/recipes-*/*/*.bb \
-            ${LAYERDIR}/recipes-*/*/*.bbappend"
-BBFILE_COLLECTIONS += "example"
-BBFILE_PATTERN_example := "^${LAYERDIR}/"
-BBFILE_PRIORITY_example := "5"
+        // We have a conf and classes directory, add to BBPATH
+        BBPATH := "${BBPATH}:${LAYERDIR}"
+        // We have a packages directory, add to BBFILES
+        BBFILES := "${BBFILES} ${LAYERDIR}/recipes-*/*/*.bb \
+                ${LAYERDIR}/recipes-*/*/*.bbappend"
+        BBFILE_COLLECTIONS += "example"
+        BBFILE_PATTERN_example := "^${LAYERDIR}/"
+        BBFILE_PRIORITY_example := "5"
 
-5. Create recipe.
+## 5. Create recipe.
         :       mkdir meta-example/recipes-example
 
-6. Create application folder.
+## 6. Create application folder.
         :       mkdir recipes-example/helloworld
 
-7. Create a bitbake .bb file in the application folder.
+## 7. Create a bitbake .bb file in the application folder.
         :       touch helloworld/helloworld_1.0.bb
 
-8. Fill the helloworld_1.0.bb with this:
+## 8. Fill the helloworld_1.0.bb with this:
 
-#
-# This file was derived from the 'Hello World!' example recipe in the
-# Yocto Project Development Manual.
-#
+        //
+        // This file was derived from the 'Hello World!' example recipe in the
+        // Yocto Project Development Manual.
+        //
 
-DESCRIPTION = "Example Hello, World application for Yocto build."
-SECTION = "examples"
-DEPENDS = ""
-LICENSE = "MIT"
-LIC_FILES_CHKSUM = "file://LICENSE;md5=96af5705d6f64a88e035781ef00e98a8"
+        DESCRIPTION = "Example Hello, World application for Yocto build."
+        SECTION = "examples"
+        DEPENDS = ""
+        LICENSE = "MIT"
+        LIC_FILES_CHKSUM = "file://LICENSE;md5=96af5705d6f64a88e035781ef00e98a8"
 
-FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}-${PV}:"
+        FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}-${PV}:"
 
-SRCREV = "241a83c92f89a63a32042d421cdf91e93434e925"
-SRC_URI = "git://github.com/GeorgeRodney/meta-hellomike.git;protocol=https;branch=main"
+        SRCREV = "241a83c92f89a63a32042d421cdf91e93434e925"
+        SRC_URI = "git://github.com/GeorgeRodney/meta-hellomike.git;protocol=https;branch=main"
 
-S = "${WORKDIR}/git"
+        S = "${WORKDIR}/git"
 
-inherit autotools
+        inherit autotools
 
-# The autotools configuration I am basing this on seems to have a problem with a race condition when parallel make is enabled
-PARALLEL_MAKE = ""
+        // The autotools configuration I am basing this on seems to have a problem with a race condition when parallel make is enabled
+        PARALLEL_MAKE = ""
 
 
-9. Look at these:
+## 9. Look at these:
         :       SRCREV = "c96b1fdd0767a9a13b9fca9d91fd3975c44c9de4"
         :       :       To get this run "md5sum LICENSE" on the LICENSE file you created in your application
 
@@ -135,35 +127,34 @@ PARALLEL_MAKE = ""
         :       :       This is the git URL that you created for the above project.
 
 
-10. Add the layer to the bitbake-layers.
+## 10. Add the layer to the bitbake-layers.
         :       bitbake-layers add-layer meta-example
         :       You should see something like this in the bblayers.conf file
 
-BBLAYERS ?= " \
-    /home/username/temp/poky/meta \
-    /home/username/temp/poky/meta-poky \
-    /home/username/temp/poky/meta-yocto-bsp \
-    /home/username/temp/poky/meta-example \
-    "
+        BBLAYERS ?= " \
+        /home/username/temp/poky/meta \
+        /home/username/temp/poky/meta-poky \
+        /home/username/temp/poky/meta-yocto-bsp \
+        /home/username/temp/poky/meta-example \
+        "
 
-11. Run it baby.
+## 11. Run it baby.
         :       bitbake imx-image-core
         :       Or whatever the BSP package is. 
 
 
-12. Place the IMX-93 board in Serial Wire Mode. 1000
+## 12. Place the IMX-93 board in Serial Wire Mode. 1000
 
-13. Unzip the built image file.
+## 13. Unzip the built image file.
         :       unzstd imx-image-core-imx93evk.rootfs-20251129154309.wic.zst
-
         :       You can see that this image is for a imx6qp sabre board.
         :       MAKE SURE YOU ASSIGN 'MACHINE' correctly in the conf/local.conf file.
         :       I should have done MACHINE = "imx93evk"
 
-14. Flash the board.
+## 14. Flash the board.
         :       sudo uuu -b emmc_all imx-image-core-imx93evk.rootfs-20251129221548.wic
 
-15. helloworld binary in /usr/bin
+## 15. helloworld binary in /usr/bin
         :       Example execution <./helloworld>
         :       root@imx93evk:/usr/bin# 
                 ---- Sent utf8 encoded message: "./helloworld\r" ---- 
