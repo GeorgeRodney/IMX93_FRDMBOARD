@@ -39,39 +39,39 @@
 ## 1. Create custom linux distro and generate image using Yocto
 
 ## 2. Files necessary to flash image to eMMC
-        :       imx-image-core-imx93evk.rootfs.wic.zst          (Root file system)
+        imx-image-core-imx93evk.rootfs.wic.zst          (Root file system)
 
 ## 3. Decompress unzstd imx-image-core-imx93evk.rootfs-20251123182859.wic.zst
-        :       imx-image-core-imx93evk.rootfs-20251123182859.wic is the output
+        imx-image-core-imx93evk.rootfs-20251123182859.wic is the output
 
 ## 4. Put the board in Serial Download Mode [1 0 0 0]
 
 ## 5. Check to be sure the device is available using: lsusb
 
 ## 6. Flash with uuu
-        :       sudo uuu -b emmc_all imx-boot-imx93evk-sd.bin-flash_singleboot imx-image-core-imx93evk.rootfs-20251123182859.wic
+        sudo uuu -b emmc_all imx-image-core-imx93evk.rootfs-20251123182859.wic
 
 ## 7. Successful output:
-        :       Success 1    Failure 0                                                         
-                1:3      8/ 8 [Done                                  ] FB: done  
+        Success 1    Failure 0                                                         
+        1:3      8/ 8 [Done                                  ] FB: done  
 
 #     Creating cutsom layer with a cpp file in it. Using the Git Repo Route.
-             :       Im using this method because I followed a guide online and it worked. 
-             :       https://blog.mbedded.ninja/programming/embedded-linux/yocto-project/adding-a-custom-app-to-a-yocto-build/
+             Im using this method because I followed a guide online and it worked. 
+             https://blog.mbedded.ninja/programming/embedded-linux/yocto-project/adding-a-custom-app-to-a-yocto-build/
 
 ## 1. Create the project files.
-        :       HelloWorld.c
-        :       HelloWorld.h
-        :       LICENSE
-        :       configure.ac
-        :       Makefile.am
+        HelloWorld.c
+        HelloWorld.h
+        LICENSE
+        configure.ac
+        Makefile.am
 
 ## 2. Create a git hub for this project. 
 
 ## 3. Make a layer to hold the application.
-        :       mkdir meta-example
-        :       mkdir meta-example/conf
-        :       touch conf/layer.conf
+        mkdir meta-example
+        mkdir meta-example/conf
+        touch conf/layer.conf
 
 ## 4. Add this to conf/layer.conf:
 
@@ -85,13 +85,13 @@
         BBFILE_PRIORITY_example := "5"
 
 ## 5. Create recipe.
-        :       mkdir meta-example/recipes-example
+        mkdir meta-example/recipes-example
 
 ## 6. Create application folder.
-        :       mkdir recipes-example/helloworld
+        mkdir recipes-example/helloworld
 
 ## 7. Create a bitbake .bb file in the application folder.
-        :       touch helloworld/helloworld_1.0.bb
+        touch helloworld/helloworld_1.0.bb
 
 ## 8. Fill the helloworld_1.0.bb with this:
 
@@ -120,16 +120,16 @@
 
 
 ## 9. Look at these:
-        :       SRCREV = "c96b1fdd0767a9a13b9fca9d91fd3975c44c9de4"
-        :       :       To get this run "md5sum LICENSE" on the LICENSE file you created in your application
+        SRCREV = "c96b1fdd0767a9a13b9fca9d91fd3975c44c9de4"
+        To get this run "md5sum LICENSE" on the LICENSE file you created in your application
 
-        :       SRC_URI = "git://github.com/GeorgeRodney/meta-hellomike.git;protocol=https;branch=main"
-        :       :       This is the git URL that you created for the above project.
+        SRC_URI = "git://github.com/GeorgeRodney/meta-hellomike.git;protocol=https;branch=main"
+        This is the git URL that you created for the above project.
 
 
 ## 10. Add the layer to the bitbake-layers.
-        :       bitbake-layers add-layer meta-example
-        :       You should see something like this in the bblayers.conf file
+        bitbake-layers add-layer meta-example
+        you should see something like this in the bblayers.conf file
 
         BBLAYERS ?= " \
         /home/username/temp/poky/meta \
@@ -139,27 +139,27 @@
         "
 
 ## 11. Run it baby.
-        :       bitbake imx-image-core
-        :       Or whatever the BSP package is. 
+        bitbake imx-image-core
+        Or whatever the BSP package is. 
 
 
 ## 12. Place the IMX-93 board in Serial Wire Mode. 1000
 
 ## 13. Unzip the built image file.
-        :       unzstd imx-image-core-imx93evk.rootfs-20251129154309.wic.zst
-        :       You can see that this image is for a imx6qp sabre board.
-        :       MAKE SURE YOU ASSIGN 'MACHINE' correctly in the conf/local.conf file.
-        :       I should have done MACHINE = "imx93evk"
+        unzstd imx-image-core-imx93evk.rootfs-20251129154309.wic.zst
+        You can see that this image is for a imx6qp sabre board.
+        MAKE SURE YOU ASSIGN 'MACHINE' correctly in the conf/local.conf file.
+        I should have done MACHINE = "imx93evk"
 
 ## 14. Flash the board.
-        :       sudo uuu -b emmc_all imx-image-core-imx93evk.rootfs-20251129221548.wic
+        sudo uuu -b emmc_all imx-image-core-imx93evk.rootfs-20251129221548.wic
 
 ## 15. helloworld binary in /usr/bin
-        :       Example execution <./helloworld>
-        :       root@imx93evk:/usr/bin# 
-                ---- Sent utf8 encoded message: "./helloworld\r" ---- 
-                ./helloworld
-                Hello, World...
+        Example execution <./helloworld>
+        root@imx93evk:/usr/bin#         
+        ---- Sent utf8 encoded message: "./helloworld\r" ---- 
+        ./helloworld
+        Hello, World...
 
         VOILA!
         
