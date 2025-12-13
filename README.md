@@ -184,9 +184,9 @@
         helloworld_1.0.bb not HelloWorld_xxxxx. I think caps may matter here. 
 
 
-#EXAMPLE CODE:
+# EXAMPLE CODE:
 
-##HelloWorld.c:
+## HelloWorld.c:
 
         \#include <stdio.h>
         \#include <stdlib.h>
