@@ -1,12 +1,11 @@
 # Create a custom linex image using Yocto. 
-# Flash the image to my IMX93
 
     Linux Kernel    :   An operating sytem that manages hardware resources. 
 
     YOCTO           :   High level project designed to simplify the creation
                     :   of custom embedded linux distros.
 
-[x] :   Clone POKY
+# Clone POKY
 
     POKY    :   A distro of Yocto.
             :   A collection of layers and build scripts.
@@ -35,18 +34,15 @@
                             conf/
                             recipes-apps/myApp/myApp_1.0.bb [Custom app]
 
-###---------------------------------------------------------------------------------------------------------------------------------------
-###
-###     Well. This actually works to flash the NXP sourced imx-image-core to the imx93 frdm board. 
-###
-###---------------------------------------------------------------------------------------------------------------------------------------
-1. Create custom linux distro and generate image using Yocto
+# Well. This actually works to flash the NXP sourced imx-image-core to the imx93 frdm board. 
 
-2. Files necessary to flash image to eMMC
+## 1. Create custom linux distro and generate image using Yocto
+
+## 2. Files necessary to flash image to eMMC
         :       imx-image-core-imx93evk.rootfs.wic.zst          (Root file system)
         :       imx-boot-imx93evk-sd.bin-flash_singleboot       (Bootloader)
 
-3. Decompress unzstd imx-image-core-imx93evk.rootfs-20251123182859.wic.zst
+## 3. Decompress unzstd imx-image-core-imx93evk.rootfs-20251123182859.wic.zst
         :       imx-image-core-imx93evk.rootfs-20251123182859.wic is the output
 
 4. Put the board in Serial Download Mode [1 0 0 0]
